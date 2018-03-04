@@ -1,7 +1,12 @@
 CFLAGS += -g3 -O0
 LDLIBS += -lcurl -lncurses
+RM ?= rm -f
+RAGEL ?= ragel
 
 d: d.o
 
-d.c: d.rl
-	ragel -G2 -o d.c d.rl
+%.c: %.c.rl
+	$(RAGEL) -G2 -o $@ $<
+
+clean:
+	$(RM) d *.o
